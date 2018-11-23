@@ -12,13 +12,13 @@ var dbSize = 100000
 function openDB(){
 	//connection to the DB
 	db=openDatabase(dbId,	dbVersion,	dbDescribtion,	dbSize)
-	
+
 	//create new table in the DB
 	db.transaction(function(tx){
-		
+
 		//To reset DB
-		//tx.executeSql('DROP TABLE QuizApp')  
-		
+		//tx.executeSql('DROP TABLE QuizApp')
+
 		var sql = 'CREATE TABLE if not exists QuizApp(id INTEGER PRIMARY KEY AUTOINCREMENT,'+
 						' home TEXT,' +
 						' powerdistance INTEGER,'+
@@ -36,22 +36,33 @@ function openDB(){
 						' comment TEXT,'+
 						' aliasName TEXT,'+
 						 'imageName TEXT)'
-			
+
 		tx.executeSql(sql)
-		
+
 	})
 }
 function insertRow(home,c1,c2,c3,c4,c5,c6,w1,w2,w3,w4,w5,w6,comment,imgName,aliasName){
-	if(db==null) openDB()
-	db.transaction(function(tx){
-		var sql = 'INSERT INTO QuizApp(home, powerdistance, 	individualism, 		musculinity,	uncertainityAvoidance,	longtermOrientation, indulgence,'+
-									'w1,w2,w3,w4,w5,w6, comment,imageName,aliasName) '+
-								'VALUES ('+'"'+home+'",'+
+
+/*		var sql = 'INSERT INTO QuizApp(home, powerdistance, 	individualism, 		musculinity,	uncertainityAvoidance,	longtermOrientation, indulgence,'+
+									'w1,w2,w3,w4,w5,w6, comment,imageName,aliasName) '*/
+			var sql = 'VALUES ('+'"'+home+'",'+
 								c1+','+c2+','+c3+','+c4+','+c5+','+ c6+','+
 								w1+','	+w2+','	+w3+','	+w4+','	+w5+',' +w6+',"' +comment+'","'+imgName+'","'+aliasName+'")'
-		tx.executeSql(sql)
-		console.log(sql)		
-	})
+
+			var xhttp = new XMLHttpRequest();
+			var url = "http://localhost:4000/save/"+sql;
+					      xhttp.onreadystatechange = function() {
+					        if (this.readyState == 4 && this.status == 200) {
+					          console.log(xhttp.responseText);
+					           // Action to be performed when the document is read;
+					        }
+					      };
+					      xhttp.open("GET", url, true);
+					      xhttp.setRequestHeader('Content-Type', 'text/plain');
+
+					      xhttp.send();
+		console.log(sql)
+
 }
 function deleteRow(delID){
 	if(db==null) openDB()
