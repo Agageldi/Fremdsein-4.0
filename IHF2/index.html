@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Perfect Home Finder</title>
+	<style>
+	@font-face { font-family: 'meine-schrift';
+             src: url('font/MetaOT-Book.otf') format('opentype'); 
+	}	
+	</style>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="libs/leaflet/leaflet.css" />
+    <script src="libs/leaflet/leaflet.js"></script>	
+	<script src="libs/leaflet/leaflet-src.js"></script>	
+	
+	<script src="libs/leaflet/projection/proj4.js"></script>
+	<script src="libs/leaflet/projection/proj4leaflet.js"></script>
+
+	<script src="libs/leaflet/grid/Leaflet.Graticule.js"></script>	
+	<script src="libs/leaflet/grid/L.Graticule.js"></script>	
+	
+	
+	
+	<!--link rel="stylesheet" href="libs/chartist/chartist.css" />
+	<link rel="stylesheet" href="libs/chartist/chartist.min.css" />
+	<script src="libs/chartist/chartist.js"></script>
+	<script src="libs/chartist/chartist.min.js"></script-->
+	
+	<script src="libs/jquery-3.3.1.min.js"></script>
+	<!--<script src="d3/d3.js"></script>
+	<script src="d3/d3.min.js"></script>
+	-->
+	
+	
+	<link rel="stylesheet" href="./components/user_input_style.css" />
+	<link rel="stylesheet" href="./components/modal.css" />
+	<link rel="stylesheet" href=".\components\popup.css" type="text/css" />
+	
+	
+	
+</head>
+<body style='min-width:1700px; min-height:1100px;max-width:1700px; max-height:1100px;'>
+
+
+<!--script src="database.js"></script-->
+<!--script src="script.js"></script-->
+<!--script src="geodata.js"></script-->
+
+<div id="homeCountry"><br>HOME</div>
+
+
+	
+	<style>
+	.popup{
+		position: absolute;
+		top:50px;
+		left:1620px;
+		
+	}
+	</style>
+	<div class="popup"  onclick="myFunctionInfo()">
+		<img src='./icons/info.png' class="icon_ref"> 
+			<span class="popuptext" id="myPopup">
+						Today, people do not only like to travel for experiencing other countries, they also consider spending time abroad for studying or working reasons. Questions arise if one would feel comfortable or could even feel at home in these countries. Instead of checking each country individually, the idea is to allow for a worldwide comparison based on the Hofstede dimensions of culture. 
+						<br>
+						Geert Hofstede, Gert Jan Hofstede, Michael Minkov and others offer 6 “dimensions of culture”. These describe basic issues for society to organize itself (based on a comprehensive study of how values in the workplace are influenced by culture; collected within IBM, 1967 to 1973). They do not exist, they are the product of our imagination. Culture is defined here “as the collective mental programming of the human mind which distinguishes one group of people from another”. As such, culture influences patterns of thinking which again is reflected in the meaning that people attach to various aspects of life and which become crystallized in the institutions of a society or as habitus in the various social milieus. Obviously, not everyone of us thinks the same, but most of us are strongly influenced by social control. So any statement on the culture of a nation is a generalization. The cultural dimensions represent independent preferences, which distinguish countries from one another and become only meaningful by comparison. Today Hofstede’s work is continued in the GLOBE project which defines 9 dimensions and focusses more on societal culture in institutions and enterprises.
+			</span> 
+		</img>
+	</div>
+	<script src="./components/infoPage.js"></script>	
+	<script>
+	function myFunctionInfo() {
+		var popup = document.getElementById("myPopup");
+		popup.classList.toggle("show");	
+	}
+	document.getElementById('myPopup').innerHTML = infoPage
+	document.getElementById('WordSection1').style.width = '90%'
+	document.getElementById('WordSection1').style.marginLeft = '5%'
+	</script>
+	
+	
+<div id="Input">
+
+	<div class="container" id='container1'>
+		<div class="slidecontainer">
+			  
+		  <p><b>How should power be distributed socially, allowing for participative decisions or accepting top-down decisions?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel" ><label class='slider_label'  id="labelmin"for="min" style= "top:7px"> participative decisions </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title = 'Power Distance'  min="0" max="100" value="50" class="slider" id="slider_power_distance"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel" ><label class='slider_label' id="labelmax"for="max"style= "top:7px"> top-down decisions </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w11" name="Weighting1" value=2>
+					<label class='weight_label'   for="w11"> very important</label> 
+				</div>
+				<div>
+					<input type="radio" id="w12" name="Weighting1" value=1.5 checked="checked">
+					<label class='weight_label'   for="w12"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w13" name="Weighting1" value=1>
+					<label class='weight_label'   for="w13"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>	
+	
+		<div class="container">
+		<div class="slidecontainer"> 	
+			
+		  <p><b>What matters more for you, loyalty (as a member of a social group or society) or self-fulfillment (of you as an individual)?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel"><label class='slider_label' id="labelmin"for="min"> <br>loyalty </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title = 'Individualism' min="0" max="100" value="50" class="slider" id="slider_individualism"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel"><label class='slider_label' id="labelmax"for="max" style= "top:7px">self-fulfillment </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w21" name="Weighting2" value=2>
+					<label class='weight_label'   for="w21"> very important </label> 
+				</div>
+				<div>
+					<input type="radio" id="w22" name="Weighting2" value=1.5 checked="checked">
+					<label class='weight_label'   for="w22"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w23" name="Weighting2" value=1>
+					<label class='weight_label'   for="w23"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>	
+
+		<div class="container">
+		<div class="slidecontainer"> 
+		  <p><b>Where do you feel more at home, where the caring for others is the social rule or individual success?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel"><label class='slider_label' id="labelmin"for="min"><br> consensus </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title='Masculinity' min="0" max="100" value="50" class="slider" id="slider_masculinity"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel"><label class='slider_label' id="labelmax"for="max"> <br>competition </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w31" name="Weighting3" value=2>
+					<label class='weight_label'   for="w31"> very important </label> 
+				</div>
+				<div>
+					<input type="radio" id="w32" name="Weighting3" value=1.5 checked="checked">
+					<label class='weight_label'   for="w32"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w33" name="Weighting3" value=1>
+					<label class='weight_label'   for="w33"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>
+
+
+		<div class="container">
+		<div class="slidecontainer">
+		  <p><b>How do you feel or act in ambivalent situations, relaxed or wishing for rules?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel"><label class='slider_label' id="labelmin"for="min" style= "top:7px"> practice over principles </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title='Uncertainty Avoidance' min="0" max="100" value="50" class="slider" id="slider_uncertainty_avoidance"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel"><label class='slider_label' id="labelmax"for="max" style= "top:7px"> principles over practice </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w41" name="Weighting4" value=2>
+					<label class='weight_label'   for="w41"> very important </label> 
+				</div>
+				<div>
+					<input type="radio" id="w42" name="Weighting4" value=1.5 checked="checked">
+					<label class='weight_label'   for="w42"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w43" name="Weighting4" value=1>
+					<label class='weight_label'   for="w43"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>	
+	
+	<div class="container">
+		<div class="slidecontainer"> 
+		  <p><b>What matters more for you, short-term success or long-term sustainable solutions?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel"><label class='slider_label' id="labelmin"for="min" style= "top:7px"> short-term success </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title='Long-term Orientation' min="0" max="100" value="50" class="slider" id="slider_long_term_orientation"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel"><label class='slider_label' id="labelmax"for="max" style= "top:7px"> sustainable solutions </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w51" name="Weighting5" value=2>
+					<label class='weight_label'   for="w51"> very important </label> 
+				</div>
+				<div>
+					<input type="radio" id="w52" name="Weighting5" value=1.5 checked="checked">
+					<label class='weight_label'   for="w52"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w53" name="Weighting5" value=1>
+					<label class='weight_label'   for="w53"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>	
+	
+		<div class="container">
+		<div class="slidecontainer"> 
+		  <p><b>How do you experience life, with suppressed gratification or feeling free?</b></p>
+		 <div class= "slidersubcontainer" id="labelcontainer"> 
+			<div class= "sliderLabel"><label class='slider_label' id="labelmin"for="min"> <br>life as a duty </label> </div>
+			<div class= "sliderBar">
+				<input type="range" title='Indulgence' min="0" max="100" value="50" class="slider" id="slider_indulgence"> 
+				<div class = 'sliderCenter'></div>
+				
+			</div>
+			<div class= "sliderLabel"><label  class='slider_label' id="labelmax"for="max"><br> enjoying life </label> </div>
+			
+		  </div>
+		</div>
+		
+		<div class="weighting">
+			<!--<fieldset>-->
+				<div>
+					<input type="radio" id="w61" name="Weighting6" value=2>
+					<label class='weight_label'   for="w61"> very important </label> 
+				</div>
+				<div>
+					<input type="radio" id="w62" name="Weighting6" value=1.5 checked="checked">
+					<label class='weight_label'   for="w62"> important </label>
+				</div>
+				<div>
+					<input type="radio" id="w63" name="Weighting6" value=1>
+					<label class='weight_label'   for="w63"> not so important </label> 
+				</div>
+			<!--</fieldset>-->
+		</div>
+	</div>	
+	
+
+	
+
+	
+	<div class = "button" id="savebutton" onclick="StoreValues();Next();"></div>
+	<div class = "button" id="savebutton2" onclick="StoreValues();Next();"></div>
+</div>
+	
+
+<!--Title Modal-->
+<div id="myModal_title" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" id='modal_content_title' onmouseover='modalTitleRemove()' > 
+	<div>
+		<p class = 'center' id='modal_text_title'>Ideal Home Finder</p>
+	</div>
+  </div>
+</div>
+
+
+
+<script>
+
+	var modalTitle = document.getElementById('myModal_title')
+
+	function modalTitleRemove(){
+		modalTitle.style.display ='none'
+		
+	}
+	//document.getElementById('modal_content_title').onmousedown = 'modalTitleRemove() '
+	
+</script>
+
+
+	
+<div id="myModal" class="modal" style='min-width:1700px; min-height:1100px;max-width:1700px; max-height:1100px;'>
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div id="modal-title"> 
+		<div class="modal-row" id="modal-text"> <p class = 'vCenter' >Home Country: </p></div>
+		<div class="modal-row" id ="modal-home"> <p id="modal-temp"><i style='font-size: 20px;'>select on the map...</i><p></div>
+		<div class="modal-row" id = "modal-submit"><p class = 'vCenter'>&#x2714; </p></div>
+	</div>
+	<div id="mapid1">	
+		
+	</div>
+
+  </div>
+</div>
+
+<script src="database.js"></script>
+
+<script src=".\geodata.js" > </script> 
+<script src=".\components\Worldmap_json.js" > </script> 
+<script src=".\components\geoJson_functions.js" > </script> 
+<script src=".\components\Json.js" > </script> 
+
+<script src=".\components\JQscript.js" > </script> 
+
+<script>
+
+var modal = document.getElementById('myModal');
+
+
+var slider1 = document.getElementById("slider_power_distance");
+var slider2 = document.getElementById("slider_individualism");
+var slider3 = document.getElementById("slider_masculinity");
+var slider4 = document.getElementById("slider_uncertainty_avoidance");
+var slider5 = document.getElementById("slider_long_term_orientation");
+var slider6 = document.getElementById("slider_indulgence");
+
+
+
+function valueReset(){
+	slider1.value = 50
+	slider2.value = 50
+	slider3.value = 50
+	slider4.value = 50
+	slider5.value = 50
+	slider6.value = 50
+	
+}
+
+function StoreValues(){
+	
+	
+	//Sliders
+	
+	value1=slider1.value;
+	localStorage.setItem('value1', value1);
+	value2=slider2.value;
+	localStorage.setItem('value2', value2);
+	value3=slider3.value;
+	localStorage.setItem('value3', value3);
+	value4=slider4.value;
+	localStorage.setItem('value4', value4);
+	value5=slider5.value;
+	localStorage.setItem('value5', value5);
+	value6=slider6.value;
+	localStorage.setItem('value6', value6);
+	console.log("VALUE 1 "+value1);
+	console.log("VALUE 2 "+value2);
+	console.log("VALUE 3 "+value3);
+	console.log("VALUE 4 "+value4);
+	console.log("VALUE 5 "+value5);
+	console.log("VALUE 6 "+value6);
+
+	//RadioButtons
+	
+	weight1 = document.querySelector('input[name="Weighting1"]:checked').value;
+	weight2 = document.querySelector('input[name="Weighting2"]:checked').value;
+	weight3 = document.querySelector('input[name="Weighting3"]:checked').value;
+	weight4 = document.querySelector('input[name="Weighting4"]:checked').value;
+	weight5 = document.querySelector('input[name="Weighting5"]:checked').value;
+	weight6 = document.querySelector('input[name="Weighting6"]:checked').value;
+	console.log(weight1);
+	localStorage.setItem('weight1', weight1);
+	console.log(weight2);
+	localStorage.setItem('weight2', weight2);
+	console.log(weight3);
+	localStorage.setItem('weight3', weight3);
+	console.log(weight4);
+	localStorage.setItem('weight4', weight4);
+	console.log(weight5);
+	localStorage.setItem('weight5', weight5);
+	console.log(weight6);
+	localStorage.setItem('weight6', weight6);
+	
+	
+	// Save home Country to the localStorage
+	localStorage.setItem('homecountry', document.getElementById("modal-temp").innerHTML);
+}
+
+
+function Next(){
+
+	console.log("NEXT")
+	window.location.href = "map_page.html";
+
+}
+
+function myFunctionInfo() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
+	
+<!--	
+	
+	
+	-->

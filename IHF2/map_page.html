@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Perfect Home Finder</title>
+	
+	<style>
+	@font-face { font-family: 'meine-schrift';
+             src: url('font/MetaOT-Book.otf') format('opentype'); 
+	}	
+	</style>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+
+<!--
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+	-->
+	<link rel="stylesheet" href="libs/leaflet/leaflet.css" />
+	
+	
+    <script src="libs/leaflet/leaflet.js"></script>	
+	<script src="libs/leaflet/leaflet-src.js"></script>	
+	<script src="libs/leaflet/leaflet.pattern-src.js"></script>	
+	
+
+	
+	
+	<script src="libs/jquery-3.3.1.min.js"></script>
+	
+
+	
+	
+	<script src="libs/leaflet/projection/proj4.js"></script>
+	<script src="libs/leaflet/projection/proj4leaflet.js"></script>
+	
+	<script src="libs/leaflet/grid/Leaflet.Graticule.js"></script>	
+	<script src="libs/leaflet/grid/L.Graticule.js"></script>	
+	<script src="libs/jsPDF/dom-to-image.min.js"></script>	
+	
+	<script src="libs/jsPDF/html2canvas.min.js"></script>	
+	
+	
+	
+	<!--
+
+	
+	
+	<script src="d3/d3.js"></script>
+	<script src="d3/d3.min.js"></script>-->
+	
+	<link rel="stylesheet" href="libs/chartist/chartist.css" />
+	<link rel="stylesheet" href="libs/chartist/chartist.min.css" />
+	<link rel="stylesheet" href="components/chartist_legend_style.css" />
+	
+	
+	<script src="libs/chartist/chartist.js"></script>
+	<script src="libs/chartist/chartist.min.js"></script>
+	<script src="libs/chartist/chartist-plugin-legend.js"></script>
+	
+	
+	<link rel="stylesheet" href="./components/map_page_modal.css" />
+	<link rel="stylesheet" href="./components/map_page_style.css" />
+	<link rel="stylesheet" href="./components/agreement_modal.css" />
+	
+	
+	<link rel="stylesheet" href=".\components\popup.css" type="text/css" />
+	<style>
+
+
+		
+		
+		
+	</style>
+	
+</head>
+<body style='min-width:1700px; min-height:1100px;max-width:1700px; max-height:1100px;'>
+
+<a id= 'test'></a>
+
+
+
+
+<!--Agreement Modal-->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content"> 
+	<div class="modal-text" id="modal-text"> <p class = 'center'>I agree that my input will be stored as well as shared with other users</p></div>
+	<div class="modal-button" id ="modal-disagree"><p class = 'center'>disagree</p></div>
+	<div class="modal-button" id = "modal-agree"><p class = 'center'>agree</p></div>
+  </div>
+</div>
+
+<div id="myModal_alias" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id='modal_alias'> 
+	<div class="modal-text_alias" id="modal-text_alias"> <p class = 'center'>Alias name: </p></div>
+	<div class="modal-text_alias" ><input class ="alias_name center" id ="alias_name" type="text" name="firstname" autocomplete="off" value="" autofocus /> </div>
+	<div class="modal-text_alias" id="alias_button"> <div class="modal-button center" id = "submit_alias"><p class = 'center'>ok</p></div> </div>
+  </div>
+</div>
+
+
+<div id='supercontainer'>
+		
+		<div id='map'>
+		<div id="heading1"> Ideal Home Finder </div>
+		<div id="Legendcontainer">
+			<p class="Legendtext1" id ='legend_header'>Feeling <br>comfortable</p>
+			<p class="Legendtext1">more likely</p>
+			<div id="Legend1" class =  'mapLegend'> </div>
+			<div id="Legend2" class =  'mapLegend'> </div>
+			<div id="Legend3" class =  'mapLegend'> </div> 
+			<div id="Legend4" class =  'mapLegend'> </div> 
+			<div id="Legend5" class =  'mapLegend'> </div>
+			<p class="Legendtext1">less likely</p>
+			
+			<div id ='Legendstrip' class =  'mapLegend'>
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="60px" height="25px" viewBox="0 0 60 25"><rect x="0px" y="0px" style="fill:white;stroke:black;stroke-width:1px;" id="e1_rectangle" width="60px" height="25px"/><line id="e2_line" x1="0px" y1="15px" x2="15px" y2="0px" style="stroke:black;fill:none;stroke-width:1px;"/><line id="e3_line" x1="5px" y1="25px" x2="30px" y2="0px" style="stroke:black;fill:none;stroke-width:1px;"/><line id="e1_line" x1="20px" y1="25px" x2="45px" y2="0px" style="stroke:black;fill:none;stroke-width:1px;"/><line id="e4_line" x1="60px" y1="0px" x2="35px" y2="25px" style="stroke:black;fill:none;stroke-width:1px;"/><line id="e5_line" x1="60px" y1="15px" x2="50px" y2="25px" style="stroke:black;fill:none;stroke-width:1px;"/></svg>
+			</div>
+			<p class="Legendtext1">Estimate based on other sources than Hofstede et al.</p>
+	
+		</div>
+		
+		</div>
+		
+	<div id = 'country_list'>
+					<!--Information popup window-->
+					<div class="popup"  onclick="myFunctionInfo()">
+						<img src='./icons/info.png' class="icon_ref"> 
+							<span class="popuptext" id="myPopup">
+										Today, people do not only like to travel for experiencing other countries, they also consider spending time abroad for studying or working reasons. Questions arise if one would feel comfortable or could even feel at home in these countries. Instead of checking each country individually, the idea is to allow for a worldwide comparison based on the Hofstede dimensions of culture. 
+										<br>
+										Geert Hofstede, Gert Jan Hofstede, Michael Minkov and others offer 6 “dimensions of culture”. These describe basic issues for society to organize itself (based on a comprehensive study of how values in the workplace are influenced by culture; collected within IBM, 1967 to 1973). They do not exist, they are the product of our imagination. Culture is defined here “as the collective mental programming of the human mind which distinguishes one group of people from another”. As such, culture influences patterns of thinking which again is reflected in the meaning that people attach to various aspects of life and which become crystallized in the institutions of a society or as habitus in the various social milieus. Obviously, not everyone of us thinks the same, but most of us are strongly influenced by social control. So any statement on the culture of a nation is a generalization. The cultural dimensions represent independent preferences, which distinguish countries from one another and become only meaningful by comparison. Today Hofstede’s work is continued in the GLOBE project which defines 9 dimensions and focusses more on societal culture in institutions and enterprises.
+							</span> 
+						</img>
+					</div>
+					<script src="./components/infoPage.js"></script>	
+					<script>
+					function myFunctionInfo() {
+						var popup = document.getElementById("myPopup");
+						popup.classList.toggle("show");	
+					}
+					document.getElementById('myPopup').innerHTML = infoPage
+					document.getElementById('WordSection1').style.width = '90%'
+					document.getElementById('WordSection1').style.marginLeft = '5%'
+					</script>
+			<div class= 'left_box' id='left_box'>
+			
+					
+			
+			
+					<p id='text'>Statistics &nbsp;&nbsp;</p>
+					<div id='statistic_input' class='statistic_bar'></div>
+					<div id='statistic_most' class='statistic_bar'></div>
+					<div id='statistic_home' class='statistic_bar'></div>
+					<div id='statistic_least' class='statistic_bar'></div> 
+			
+			</div>
+		<div id='comment'>
+			<div id= 'comment_icon'>Comment</div>
+			<textarea id='input_field' type='text' > </textarea>
+			<div class= 'button1'id= 'comment_button'><p class = 'center'>submit & finish</p></div>
+			<div class= 'button1'id= 'finish_button' ><p class = 'center'>finish</p></div>
+		</div>
+			<!--div id='country_box_1' class = 'country_box'>	</div-->
+		
+		<!--button type="button" onclick='createBars()'>Test</button>
+		<button type="button" onclick='editCircle()'>Test2</button-->
+		
+	</div>
+
+</div>
+
+	
+<div id='chart_popup'>
+	<div id='top_line'>
+		<div class='chart_legend' id='own_input'>
+			Own Input
+		</div>
+		<div class='chart_legend' id='chart_country'>
+			Country
+		</div>
+
+		
+	
+	</div>
+	<p class="close" id='chart_close'>&times;</p>
+	<div id="DiagramDiv" class="ct-chart ct-class-chart-donut"></div>
+</div>
+
+
+
+
+<script src="geodata.js"></script>
+<script src="database.js"></script>
+<script src="script.js"></script>
+
+<script src=".\components\map_page_Json.js" > </script> 
+<script src=".\components\JQscript.js" > </script> 
+<script src=".\components\DB.js" > </script> 
+
+
+
+<script>
+
+
+
+function statisticBarAdjust(mostFitting,st_mh,home,st_hh,leastFitting,st_lh){
+
+	var st_input=document.getElementById('statistic_input')
+	var st_most=document.getElementById('statistic_most')
+	var st_home=document.getElementById('statistic_home')
+	var st_least=document.getElementById('statistic_least')
+	
+	var margin=350;
+	var offsetTop = 40
+	var F = parseInt(margin/100)
+	
+	st_input.style.height = (F*100 )+'px';
+	st_input.style.marginTop= (margin+offsetTop-F*100)+'px';
+	
+	st_most.style.height = (F*st_mh )+'px';
+	st_most.style.marginTop= (margin+offsetTop-F*st_mh)+'px';
+	
+	st_home.style.height = (F*st_hh )+'px';
+	st_home.style.marginTop= (margin+offsetTop-F*st_hh)+'px';
+	
+	st_least.style.height = (F*st_lh )+'px';
+	st_least.style.marginTop= (margin+offsetTop-F*st_lh)+'px';
+	
+	
+	var add = '<style>#statistic_most:before{content:"most likely"!important;}</style>';
+	var add1 = '<style>#statistic_home:before{content:"home country"!important;}</style>';
+	var add2 = '<style>#statistic_least:before{content:"least likely"!important;}</style>';
+	$('body').append(add);
+	$('body').append(add1);
+	$('body').append(add2);
+	
+	
+	
+	add = '<style>#statistic_most:after{content:"'+mostFitting+'"!important;'+'}</style>'
+	add1 = '<style>#statistic_home:after{content:"'+home+'"!important;'+'}</style>'
+	add2 = '<style>#statistic_least:after{content:"'+leastFitting+'"!important;'+'}</style>'
+	
+	
+	$('body').append(add);
+	$('body').append(add1);
+	$('body').append(add2);
+	$('body').append('<style>#statistic_input:after{content:"Own Input"!important;');
+	
+	
+	st_most.innerHTML = mostFitting
+	st_home.innerHTML = home
+	st_least.innerHTML = leastFitting
+	
+	
+	for(var i=0;i<3;i++)
+{
+	var idList = ['statistic_most','statistic_home','statistic_least']
+	var cln = document.getElementById(idList[i])
+	
+	cln.onmouseover =function(){
+			//console.log('I am hovered on ' + this.innerHTML)
+			L_mouseover(this.innerHTML)
+	}
+	cln.onmouseleave = function(){
+			//console.log('I am not hovered anymore on ' + this.innerHTML)
+			L_mouseleave(this.innerHTML)
+			L_myLayer[L_myFeature.indexOf(homecountry)].setStyle({
+								weight: 2.5,
+								color: homeColor,  //Outline color
+								fillOpacity: 1
+			})
+	}
+	cln.onmousedown = function(){
+			L_mousedown(this.innerHTML)
+	}
+	
+}
+
+	
+}
+
+
+
+
+/*function myFunctionStatistic(){
+	var popup = document.getElementById("myPopup2");
+    popup.classList.toggle("show");
+}*/
+
+function myFunctionInfo() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+
+var chart_popup= document.getElementById('chart_popup')
+var diagramDiv = document.getElementById('DiagramDiv')
+var clickedCountry = 'click'
+
+var test
+
+/**/
+var mapDiv = 			document.getElementById('map')
+var supercontainer = 	document.getElementById('supercontainer')
+var legendContainer = 	document.getElementById('Legendcontainer')
+var left_box = 			document.getElementById('left_box')
+var comment = 			document.getElementById('comment')
+
+var SW =screen.availWidth
+var SH = screen.availHeight
+
+SW=1700
+SH=1100
+//SW=1600; SH=1050
+
+supercontainer.style.width=SW*.98 + 'px'
+supercontainer.style.height=(SH*.90) + 'px'
+supercontainer.style.margin = '0px'
+supercontainer.style.marginTop = '30px'
+supercontainer.style.marginLeft= '10px'
+supercontainer.style.backgroundColor= 'RGBa(102,102,102,1)'
+
+
+
+mapDiv.style.width=(SW*.831) + 'px'
+mapDiv.style.height='100%'
+//comment.style.width = mapDiv.style.width
+//left_box
+//legendContainer.style.bottom = '10px'
+
+console.log("HOMECOUNTRY: "+homecountry)
+
+
+
+
+var w = 450
+var h = 250
+		chart_popup.style.width= w+"px"
+		chart_popup.style.height= h+"px"
+		
+var off = 20;
+			
+		diagramDiv.style.height= (h-off*2)+'px'
+		diagramDiv.style.width= (w-off*2)+'px'
+
+
+
+
+
+//__________________________SIDEBAR__________________________________________________
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "400px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+
+//____________________________MAP SCRIPT______________________________________		
+
+	
+
+	
+
+// Defining Mollweide projection
+var crs = new L.Proj.CRS('ESRI:54009', '+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs', { 
+	resolutions: [29000,25000,20000,10000,7500],//zoomlevel
+	//scales: [ 1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+	origin: [0, 0]
+})
+
+
+	
+	var map = L.map('map', { 
+		crs: crs,attributionControl: false, maxZoom:4
+	
+	})
+	map.setView([0, 0], 1);
+
+
+	L.geoJSON(backgroundOcean, {style: oceanStyle}).addTo(map)
+	
+	
+	var layers_grid = L.geoJSON(false, {
+	      style: function(feature) { return feature.properties}
+	}).bindTooltip(function (layer) {
+		return String(layer.feature.properties.NAME_LONG); // Needs to be a string
+	} //, {permanent: true, opacity: 0.5}
+	).addTo(map);
+
+
+	// ______________________GRID
+	
+	// Specify divisions every 10 degrees
+		L.graticule({ interval: 20 }).addTo(map);
+
+		// Specify bold red lines instead of thin grey lines
+		L.graticule({
+			style: {
+				color: '#8d8d8d',
+				weight: 1
+			}
+		}).addTo(map);
+	
+	//L.control.scale().addTo(map);
+	
+	
+	
+	
+	//Feature onclick (and Popup)
+	function onEachFeature(feature, layer) {
+		
+		
+		var cName
+		
+		var valuepath1
+		var dvalue1
+		var valuepath2
+		var dvalue2
+		var valuepath3
+		var dvalue3
+		var valuepath4
+		var dvalue4
+		var valuepath5
+		var dvalue5
+		var valuepath6
+		var dvalue6
+		
+		L_myLayer.push(layer)
+		L_myFeature.push(feature.properties.NAME_LONG)
+		
+		//Display diagram on click
+		function popupLocate(e){
+			
+			chart_popup.style.display='block'
+			
+			var w = chart_popup.style.width.split('px')
+			var h = chart_popup.style.height.split('px')
+			
+			w=w[0]
+			h=h[0]
+
+			var x=e.originalEvent.clientX
+			var y=e.originalEvent.clientY
+
+			
+			if(x>SW/2) x=x-w
+			if(y>SH/2) y=y-h
+			
+
+			chart_popup.style.left= x+"px"
+			chart_popup.style.top= y+"px"
+			
+			
+		}
+		
+		
+		var popUP = feature.properties.NAME_LONG
+		popUP = popUP.split('_').join(' ')
+	
+		
+		layer.bindTooltip(
+			popUP,
+			{
+				permanent:false,
+				direction:'center',
+				className: 'countryLabel'
+				}
+			);
+		
+	if(Database.hasOwnProperty(feature.properties.NAME_LONG))	//only countries with values can be selected as homeCountry
+	layer.on('click', function (e) {
+	
+		document.getElementById('chart_country').innerHTML = feature.properties.NAME_LONG.split('_').join(' ')
+	
+     //layer.setStyle({fillColor :'blue'}) ;
+		
+		clickedCountry=popUP
+		
+		popupLocate(e)
+		test=layer;
+		
+			
+			cName=feature.properties.NAME_LONG
+			console.log(cName)
+			
+		if(eval('Database.' + cName) !=null){
+			
+			valuepath1='Database.'+cName+'.FIELD2'
+			dvalue1=eval(valuepath1)
+			valuepath2='Database.'+cName+'.FIELD3'
+			dvalue2=eval(valuepath2)
+			valuepath3='Database.'+cName+'.FIELD4'
+			dvalue3=eval(valuepath3)
+			valuepath4='Database.'+cName+'.FIELD5'
+			dvalue4=eval(valuepath4)
+			valuepath5='Database.'+cName+'.FIELD6'
+			dvalue5=eval(valuepath5)
+			valuepath6='Database.'+cName+'.FIELD7'
+			dvalue6=eval(valuepath6)
+			
+			//add value 5 and 6 to diagram
+			a=[dvalue1,dvalue2,dvalue3,dvalue4,dvalue5,dvalue6]
+			console.log(a)
+			createDiagram2(a)
+		}
+			
+
+		});
+		
+
+		
+		//Display country name on mouseover
+		
+			
+
+			
+	/*
+	
+	var popupContent = '<svg id="mySVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"/>';
+	var popupContent=""
+		
+		if (feature.properties && feature.properties.popupContent) {
+			popupContent += feature.properties.popupContent;
+			
+		}
+
+	layer.bindPopup(popupContent);
+	
+	
+	*/
+	
+	
+	
+	}
+
+	
+
+//____________________________DRAW GEOJSON ON MAP______________________________________		
+	
+		
+	Recolor();
+	
+	
+//best fitting countries list
+var countries_best_box = document.getElementsByClassName('country_box')[0]
+var countries_best_html = document.getElementById('country_list')
+var cln = countries_best_box
+
+
+function L_mouseover(cName){
+	var i = L_myFeature.indexOf(cName.split(' ').join('_'))
+	var l = L_myLayer[i]
+	l.setStyle({
+		weight: 3
+	})
+}
+
+function L_mouseleave(cName){
+	var i = L_myFeature.indexOf(cName.split(' ').join('_'))
+	var l = L_myLayer[i]
+	l.setStyle({
+		weight: 0.5
+	})
+}
+
+function L_mousedown(cName){
+	var i = L_myFeature.indexOf(cName.split(' ').join('_'))
+	var l = L_myLayer[i]
+	var diagramDiv = document.getElementById('DiagramDiv')
+	
+	clickedCountry=cName
+	document.getElementById('chart_country').innerHTML = cName.split('_').join(' ')
+
+	chart_popup.style.display = 'block'	
+	
+	var w = chart_popup.style.width.split('px')
+	var h = chart_popup.style.height.split('px')
+			
+	w=w[0]
+	h=h[0]
+	
+	var x=SW/2-w/2;
+	var y=SH/2-h/2;
+	
+	chart_popup.style.left = x+'px'
+	chart_popup.style.top  = y + 'px'
+	
+	
+	var cName=L_myFeature[i]
+			
+		if(eval('Database.' + cName) !=null){
+			
+			valuepath1='Database.'+cName+'.FIELD2'
+			dvalue1=eval(valuepath1)
+			valuepath2='Database.'+cName+'.FIELD3'
+			dvalue2=eval(valuepath2)
+			valuepath3='Database.'+cName+'.FIELD4'
+			dvalue3=eval(valuepath3)
+			valuepath4='Database.'+cName+'.FIELD5'
+			dvalue4=eval(valuepath4)
+			valuepath5='Database.'+cName+'.FIELD6'
+			dvalue5=eval(valuepath5)
+			valuepath6='Database.'+cName+'.FIELD7'
+			dvalue6=eval(valuepath6)
+			
+			//add value 5 and 6 to diagram
+			a=[dvalue1,dvalue2,dvalue3,dvalue4,dvalue5,dvalue6]
+			console.log(a)
+			createDiagram2(a)
+		}
+			
+
+		
+	
+}
+
+countries_best[2].sort(function(a, b){return b - a});
+countries_best[2].reverse()
+
+
+var mostFitting = countries_best[0][countries_best[1].indexOf(countries_best[2][0])]
+var mostFittingValue = 100-countries_best[2][0]/wght
+
+var homeValue = 0
+var index = country_value_aga[0].indexOf(homecountry)
+if(index >-1) homeValue = country_value_aga[1][index]
+else homeValue = 300  // if there is no value for home country
+
+var leastValue = Math.max(...country_value_aga[1])
+var leastCountry = country_value_aga[0][country_value_aga[1].indexOf(leastValue)].split('_').join(' ')
+
+statisticBarAdjust(mostFitting.split('_').join(' '),Math.round(mostFittingValue),homecountry.split('_').join(' '),Math.round(100-homeValue/wght),leastCountry,Math.round(100-leastValue/wght))  // Adjusting statistic popup chart
+
+
+//Country list
+/* 
+for(var i =0;i<countries_best[2].length;i++){
+	if(i>22) break;
+	var ind = countries_best[1].indexOf(countries_best[2][i])
+	countries_best[1][ind]=0;
+	
+	var t = countries_best[0][ind].split('_').join(' ')
+	
+	if(i>0) countries_best_html.appendChild(cln);
+	
+	cln.innerHTML = t
+	
+	cln.onmouseover =function(){
+			//console.log('I am hovered on ' + this.innerHTML)
+			L_mouseover(this.innerHTML)
+	}
+	cln.onmouseleave = function(){
+			//console.log('I am not hovered anymore on ' + this.innerHTML)
+			L_mouseleave(this.innerHTML)
+			L_myLayer[L_myFeature.indexOf(homecountry)].setStyle({
+								weight: 2.5,
+								color: homeColor,  //Outline color
+								fillOpacity: 1
+			})
+	}
+	cln.onmousedown = function(){
+			L_mousedown(this.innerHTML)
+	}
+	
+	//countries_best_box.innerHTML +='<br>' + t 
+	cln = countries_best_box.cloneNode(true);
+}*/
+
+
+
+</script>
+
+
+</body>
+</html>
+	
+<!--	
+	
+	
+	-->

@@ -1,0 +1,214 @@
+<html >
+<head>
+	<title> Emotional Ranking</title>
+	<script src="jquery.min.js" > </script>
+	
+	
+
+
+	
+	
+	<link type="text/css" rel="stylesheet" href="libs/slider/jquery-ui-1.10.0.custom.min.css" />
+	<link type="text/css" rel="stylesheet" href="libs/slider/bootstrap.css" />
+	<script  src="libs/slider/jquery.min.js"></script>
+	<script  src="libs/slider/bootstrap.js"></script>
+	<script  src="libs/slider/jquery-ui.js"></script>
+	<link rel="stylesheet" href="libs/slider/style.css" />
+	<script src="libs/slider/slider.js"></script>
+	<script src="libs/slider/script.js"></script>
+	
+	
+	<link href="style.css" type="text/css" rel="stylesheet" />
+	<link href="style_arrangment_bar.css" type="text/css" rel="stylesheet" />
+	<link href=".\popup.css" type="text/css" rel="stylesheet" />
+	<style>
+	body{
+	 background-color: rgba(102,179,211,0.5);
+	}
+	
+	
+	
+	</style>
+	
+	
+</head>
+<body style='min-width:1700px; min-height:1100px; max-width:1700px; max-height:1100px;'>
+
+
+<!--Title Modal-->
+<style>
+#myModal_title{
+    display: block; /* Hidden by default (none/block)*/
+    position: fixed; /* Stay in place */
+	z-index: 100; /* Sit on top */
+    padding-top: 0px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 1700px; /* Full width */
+    height: 1100px; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+
+	//background-color: rgba(0,0,0,0.5);
+}
+#modal_content_title{
+
+	border-radius: 10px;
+
+	width:40%;
+	height:150px;
+	
+	position: absolute;
+	top:40%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	background-color: rgba(0,0,0,0.8);
+}
+#modal_content_title div{
+	height: 50px;
+	width: 50px;
+	
+	position: absolute;
+	right:50px;
+	top:50px;
+	background-color: #6dc066;
+	border-radius: 50%;
+	
+	cursor: pointer;
+}
+#modal_content_title div:hover{
+	background-color: green;
+	transition:0.5s;
+	color: white;
+}
+#modal_text_title{
+	position: absolute;
+	text-align: left;
+	
+	color:white;
+	font-size: 20px;
+	left: 30px;
+	top: 20px;
+}
+</style>
+<div id="myModal_title" >
+
+  <!-- Modal content -->
+  <div class="modal-content" id='modal_content_title'  > 
+		<p id='modal_text_title' >
+		1st, select item.<br>
+		2nd, change orders of the countries (drag & drop).<br>
+		3rd, adjust the relative closeness by means of the slider. 
+		</p>
+		<div id='instruction'><p class= 'center2' style='font-weight:bold;font-size:20px;'>ok</p></div>
+  </div>
+</div>
+<script>
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<div class="popup"  onclick="myFunctionInfo()">
+		<img src='./icons/info.png' class="icon_ref"> 
+			<span class="popuptext" id="myPopup">
+				“Not feeling at home” is a very personal experience. For every individual it is linked to other aspects of life. Such aspects could be food, experienced freedom, the weather, surrounding landscape, vegetation cover or culture among many others. However, depending on how you were brought up, e.g. food differs: German people are particular about bread, Indians complain about the rice German people prepare, and what is called ‘ugali’ in Kenya is named ‘posho’ in Uganda and ‘papp’ in South Africa but claimed not to be the same. With a world getting smaller due to globalization and affordable travelling for many, our hypothesis is that “Not feeling at home” is nowadays not necessarily related to the physical distance from home anymore. This we like to reveal.
+			</span> 
+		</img>
+	</div>
+	<script src="infoPage.js"></script>	
+	<script>
+	function myFunctionInfo() {
+		var popup = document.getElementById("myPopup");
+		popup.classList.toggle("show");	
+	}
+	document.getElementById('myPopup').innerHTML = infoPage
+	document.getElementById('WordSection1').style.width = '90%'
+	</script>
+
+	
+	
+		<!--GALLERY-->
+
+	<div class="popup" id='popup_gallery' onclick="myFunctionInfo1()">
+		<img src='./icons/gallery.png' class="icon_ref" id='info_ref_gallery'> 
+			<span class="popuptext" id="myPopup_gallery">
+				<div class = 'slideBox' id='imageBox'>
+					<img class="images" src=""/>
+				</div>
+			</span> 
+		</img>
+	</div>
+	<script src="gallery.js"></script>	
+	
+	
+	
+	
+
+	
+	<!--a href="..\index.html"><div class="button" id="home_button">Home</div></a-->
+	<h1>Arrangement according to Food</h1>
+	
+	
+	
+  
+	
+	
+<div class="panel">	
+	<div class = "row1" id="header">
+	<div> Item:</div>
+		<div class = "free_Topic_box"  id = "free_Topic_box">
+			<input class ="free_Topic" id ="free_Topic" type="text" name="firstname" autocomplete="off" value="" autofocus></input>
+			 <span class ="toolT">bread, rice, ugali, etc.</span>
+		</div>
+	</div>
+<div class ='arrBox'>
+	<div class = "row1">
+	<div class = "order">1</div>
+	<div ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="drop(event)" draggable="true" class="country_arrangement" id="country_list1">nothing..</div>
+	</div>
+	<div class = "row1">
+	<div class = "order">2</div>
+	<div ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="drop(event)" draggable="true" class="country_arrangement" id="country_list2">nothing..</div>
+	</div>
+	<div class = "row1">
+	<div class = "order">3</div>
+	<div ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="drop(event)" draggable="true" class="country_arrangement"  id="country_list3">nothing..</div>
+	</div>
+	<div class = "row1">
+	<div class = "order">4</div>
+	<div ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="drop(event)" draggable="true" class="country_arrangement" id="country_list4">nothing..</div>
+	</div>
+	<div class = "row1">
+	<div class = "order">5</div>
+	<div ondragstart="dragStart(event)" ondragover="allowDrop(event)" ondrop="drop(event)" draggable="true" class="country_arrangement" id="country_list5">nothing..</div>
+	</div>
+	<div class="button" id="next2"><p class= 'center'>next</p></div>
+	
+<div class="col-xs-12">
+    <div class="col-xs-12">
+      <div class="slider sleep" id="slider"></div>
+    </div>
+</div>
+<script>
+	document.getElementById('slider').style.backgroundColor = 'grey'
+	document.getElementById('slider').style.borderColor = 'grey'
+	
+</script>
+
+</div>
+</div>
+<script src="script_var.js" > </script> 
+<script src="JQscript.js" > </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+div{ /* To make lines unselectable*/
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body{
+	background-color: rgba(102,179,211,0.1);
+}
+#info{
+	//color: #7e1f2a;
+	
+	animation-name: buttonBounce;
+    animation-duration: 0.5s;
+}
+#mapid{
+	margin: 1%;
+	margin-bottom:0.5%;
+	z-index: 0;
+	padding: 14px 0;
+	background-color: grey;
+	width: 97.5%;
+	height: 880px;
+	border-radius: 25px;
+	box-shadow: 5px 5px 15px 3px #111;
+	text-align: left;
+	font-weight: bold;
+	position: relative;
+	//max-height:875px;
+	
+}
+p{
+	margin: 10px;
+	position: relative;
+	left: 5%;
+}
+div{
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	position: relative;
+	float: left;
+}
+.button{
+	background-color: #6dc066;
+	position: relative;
+
+	width: 12%;
+	border-radius: 10px;
+	box-shadow: 3px 3px 10px 1px #111;
+	height: 30px;
+	font-size: 16px;
+	padding-left: 0.3em;
+	margin-left: 0.8em;
+	margin-top: 0.8em;
+	padding-right: .3em;
+	color: #333;
+	float:left;
+	
+	cursor: pointer;
+}
+.button:after{
+	content: ' \00bb  ';
+	position: absolute;
+	opacity: 0;
+	top: 0px;
+	right: 10px;
+	text-align: right;
+	transition: 0.5s;
+}
+.button:hover:after{
+	//opacity:1;
+	position:relative;
+}
+.button:hover{
+	background-color: green;
+	box-shadow: 3px 3px 10px 1px #6dc066;
+	transition:0.5s;
+	color: white;
+}
+.row{
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 3px 3px 10px 1px #111;
+	height: 5em;
+	font-size: 18px;
+	position: relative;
+	color: #333;
+	font-weight: bold;
+	margin-left: 1%;
+	margin-top: 10px;
+	margin-right: 1.25%;
+	float:left;
+	width: 97.5%;
+	border: 2px;
+	text-align: left;
+
+	border-color: #db0031;
+}
+.text{
+	transform: translateY(7px);
+	width:30%;
+	font-size:16px;
+}
+.row div.country_arrangement{
+	margin-top: 8px;
+	margin-right: 10px;
+	border-radius:3px;
+	position: relative;
+	width: 11%;
+	height: 80%;
+	background-color:white ;
+	box-shadow: 1px 1px 3px 1px green;
+	text-align: center;
+	padding: 0px;
+}
+.country_arrangement p{
+	font-size: 16px;
+}
+.row2{
+	height: 2em;
+	font-size: 18px;
+	text-align: left;
+	//padding-left: 0.3em;
+	position: relative;
+	color: #333;
+	font-weight: bold;
+	//margin-left: 0.3em;
+	//margin-top: 0.1em;
+	float:left;
+	width: 97.5%;
+	//background-color: red;
+}
+
+#clear{
+	background-color: #f2f2f2;
+}
+#clear:after{
+	content: ' \1F5D1  ';
+	position: absolute;
+	opacity: 0;
+	top:0px;
+	right: 30px;
+	text-align: right;
+	transition: 0.5s;
+}
+#clear:hover:after{
+	//opacity: 1;
+	//left: 10px;
+}
+#clear:hover{
+	background-color: #333
+}
+#gap1{
+	width:70%;
+	height:100%;
+	position: relative;
+	float:left;
+	font-size: 18px;
+	text-align: left;
+	padding-left:100px;
+	margin-right: -100px;
+}

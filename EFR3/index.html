@@ -1,0 +1,171 @@
+
+<html >
+<head>
+	<title> Emotional Ranking  </title>
+	<script src=".\components\jquery.min.js" > </script>
+	<script src=".\components\script.js" > </script> 
+	<script src=".\components\Worldmap_json.js" > </script> 
+	
+	<link rel="stylesheet" href="components/libs/leaflet/leaflet.css" />
+    <script src="components\libs/leaflet/leaflet.js"></script>	
+	<script src="components\libs/leaflet/leaflet-src.js"></script>	
+	
+	<script src="components\libs/leaflet/projection/proj4.js"></script>
+	<script src="components/libs/leaflet/projection/proj4leaflet.js"></script>
+	
+	<script src="components/libs/leaflet/grid/Leaflet.Graticule.js"></script>	
+	<script src="components/libs/leaflet/grid/L.Graticule.js"></script>	
+	
+	<link href=".\components\style-2.css" type="text/css" rel="stylesheet" />
+	<link href=".\components\modal.css" type="text/css" rel="stylesheet" />
+	<link href=".\components\modal.css" type="text/css" rel="stylesheet" />
+	<link href=".\components\popup.css" type="text/css" rel="stylesheet" />
+
+	
+</head>
+<body style='min-width:1700px; min-height:1100px;max-width:1700px; max-height:1100px;'>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div id="modal-title"> 
+		<div class="modal-row" id="modal-text"> <p class='vCenter' >Home Country: </p></div>
+		<div class="modal-row" id ="modal-home"> <p class='center' id="modal-temp"><i >select on the map...</i><p></div>
+		<div class="modal-row" id = "modal-submit"><p class='center' >&#x2714;</p></div>
+	</div>
+	<div id="mapid1">	
+		
+	</div>
+
+  </div>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+</script>
+
+
+
+
+
+	<div class="popup"  onclick="myFunctionInfo()">
+		<img src='./components/icons/info.png' class="icon_ref"> 
+			<span class="popuptext" id="myPopup">
+				“Not feeling at home” is a very personal experience. For every individual it is linked to other aspects of life. Such aspects could be food, experienced freedom, the weather, surrounding landscape, vegetation cover or culture among many others. However, depending on how you were brought up, e.g. food differs: German people are particular about bread, Indians complain about the rice German people prepare, and what is called ‘ugali’ in Kenya is named ‘posho’ in Uganda and ‘papp’ in South Africa but claimed not to be the same. With a world getting smaller due to globalization and affordable travelling for many, our hypothesis is that “Not feeling at home” is nowadays not necessarily related to the physical distance from home anymore. This we like to reveal.
+			</span> 
+		</img>
+	</div>
+	<script src="./components/infoPage.js"></script>	
+	<script>
+	function myFunctionInfo() {
+		var popup = document.getElementById("myPopup");
+		popup.classList.toggle("show");	
+	}
+	document.getElementById('myPopup').innerHTML = infoPage
+	document.getElementById('WordSection1').style.width = '90%'
+	</script>
+
+
+	<!--GALLERY-->
+	<style>
+	.icon_ref{
+		background-color: white;
+	}
+	</style>
+	<div class="popup" id='popup_gallery' onclick="myFunctionInfo1()">
+		<img src='./components/icons/gallery.png' class="icon_ref" id='info_ref_gallery'> 
+			<span class="popuptext" id="myPopup_gallery">
+				<div class = 'slideBox' id='imageBox'>
+					<img class="images" src=""/>
+				</div>
+			</span> 
+		</img>
+	</div>
+	
+	<script src="components/gallery.js"></script>	
+	
+	
+
+	
+	
+<div class ="row">
+<div id="homeCountry"><br>HOME</div>
+<div class ="text">
+	<p>Select your 5 most favourite countries</p>
+	<p id="info" >Number of countries selected: 0</p>
+</div>
+	<div class = "country_arrangement" >	<p class = 'center' id = "country1">empty </p></div>
+	<div class = "country_arrangement" >	<p class = 'center'id = "country2">empty </p></div>
+	<div class = "country_arrangement" > <p class = 'center' id = "country3">empty </p> </div>
+	<div class = "country_arrangement" > <p class = 'center' id = "country4">empty </p> </div>
+	<div class = "country_arrangement" > <p class = 'center' id = "country5">empty </p> </div>
+</div>
+<div id="mapid">
+	
+</div>
+
+<div class ="row2">
+	<div id = "gap1"><p id="ctr_hover">Country: <i>hover mouse on the map</i>  </p></div>
+	<a href=".\index.html" ><div class="button" id="clear"><p class = 'center'>clear</p></div></a>
+	<div class="button" id="next1"><p class = 'center'>next</p></div>
+</div>
+
+<!--Title Modal-->
+<div id="myModal_title" class="modal" >
+
+  <!-- Modal content -->
+  <div class="modal-content" id='modal_content_title' onmouseover='modalTitleRemove()' > 
+	<div>
+		<p class = 'center2' id='modal_text_title' >Emotional Foreignness Ranking</p>
+	</div>
+  </div>
+</div>
+<script>
+	var modalTitle = document.getElementById('myModal_title')
+
+	function modalTitleRemove(){
+		modalTitle.style.display ='none'
+		
+	}
+	//document.getElementById('modal_content_title').onmousedown = 'modalTitleRemove() '
+	
+</script>
+
+
+
+	
+
+
+
+<style>
+#mapid{
+    background-color:rgba(255,255,255,0.9);
+}
+#mapid1{
+    background-color:rgba(255,255,255,0.9);
+}
+</style>
+
+<script src=".\components\geoJson_functions.js" > </script> 
+<script src=".\components\Json.js" > </script> 
+<script src=".\components\JQscript.js" > </script>
+<script>
+//country_names array must be created
+var x = document.getElementsByClassName("country_list");
+for(var j=0;j<x.length;j++){
+for(var i=0;i<country_names.length;i++)
+	x[j].options[i] = new Option(country_names[i], i);
+}
+L.tileLayer('C:/baseM/output-country/{z}/{x}/{y}.png', {
+	id: 'MapID'
+	//,maxZoom: 7
+	})//.addTo(mymap)
+//basemap= L.tileLayer('', {id: 'MapID'}).addTo(mymap)
+//L.esri.tiledMapLayer({url: '.\\basemap\\Countries.tpk', maxZoom: 7}).addTo(map);   // not working
+
+</script>
+</body>
+
+</html>

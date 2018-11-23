@@ -1,0 +1,241 @@
+.printText{
+	position: relative;
+	float: left;
+	background-color: rgba(231,231,231,0.8);
+	width: 20.85%;
+	height:43%;
+	margin:1%;
+	padding: 16px;
+	border-radius: 5px;
+	font-size: 16px;
+	text-align: left;
+	color: black;
+}
+#comment{
+	//background-color: red;
+	position: relative;
+	float: left;
+	margin-top:-10px;
+	margin-left: 2%;
+
+	height: 100%;
+	width: 97%;
+	color: black;
+	font-size: 14px;
+}
+
+#input_field{
+	width: 100%;
+	height: 95%;
+	position: relative;
+	float: left;
+	text-align: top;
+	border-style: solid;
+	border-width:2px;
+	
+	
+	animation-name: buttonBounce;
+    animation-duration: 0.5s;
+}
+#alias_name{
+	border-style: solid;
+	border-width:2px;
+	border-color: white;
+	
+	
+	animation-name: buttonBounce2;
+    animation-duration: 0.5s;
+
+}
+.button2{
+	background-color: RGB(102,179,211);
+	width:200px;
+	height: 1em;
+	text-align: center;
+	padding: 15px;
+	margin-left: 0%;
+	border-radius: 0.5em;
+	
+	
+	position: absolute;
+	bottom: 0%;
+	left: 50%;
+	transform: translate(-50% , 158% );
+	font-weight: bold;
+	cursor: pointer;
+}
+.button2:hover,
+.button2:focus{
+	background-color:  RGB(0,128,179);
+	color: white;
+}
+#print_button{
+	transform: translate(-50% , 280% );
+}
+#finish_button{
+	visibility: hidden;
+}
+#comment_icon{
+	//background-color: yellow;
+	width: 80px;
+	height: 1.3em;
+	margin-top: 5px;
+	text-align: left;
+	font-weight: bold;
+	margin-left:0px;
+	padding-left:0px;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: block; /* Hidden by default (none/block)*/
+    position: fixed; /* Stay in place */
+	z-index: 900000; /* Sit on top */
+    padding-top: 15px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 1700px; /* Full width */
+    height: 1100px; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(100,100,100,0); /* Black w/ opacity */
+}
+.modal-content {
+	position: absolute;
+	background-color: rgba(0,0,0,0.8);
+    left: 25%;
+	top: 42%;
+    width: 600px;
+	height: 130px;
+	border-radius: 10px;	
+}
+.modal-text{
+	position: relative;
+	//background-color: red;
+	width: 99%;
+	height: 50%;
+	margin: 2.5%;
+	margin-bottom: 0px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	font-style: italic;
+	color: white;
+}
+.modal-text_alias{
+	position: relative;
+	float:left;
+	//background-color: red;
+	width: 32%;
+	height: 50px;
+	margin: 20px;
+	margin-right:0px;
+	padding:0px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	font-style: italic;
+	color: white;
+}
+#alias_button{
+	width: 20%;
+}
+.modal-button{
+	position: relative;
+	float:left;
+	width: 25%;
+	height: 20px;
+	margin-left: 12%;
+	margin-right:12%;
+	border-radius: 15px;
+	background-color: lightgreen;
+	text-align: center;
+	padding: 2px;
+	font-size:16px;
+	font-weight: bold;	
+	cursor: pointer;
+}
+#modal-disagree{
+	background-color: grey;
+}
+#modal-disagree:hover,
+#modal-disagree:focus{
+	background-color: darkgrey;
+}
+#modal-agree:hover,
+#modal-agree:focus{
+	background-color: green;
+}#modal-title{
+	background-color: RGB(102,179,211);
+	width: 100%;
+	height: 7%;
+	border-radius: 5px;
+	color: #333;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: left;
+}
+
+#modal-home{
+	background-color: white;
+	margin-top: 5px;
+	height:75%;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px 1px green;
+	text-align: center;
+}
+#modal-submit{
+	background-color: #6dc066;
+	height: 75%;
+	margin-top: 5px;
+	margin-left: 5px;
+	border-radius: 5px;
+	opacity: 1;
+	width: 5%;
+	color: white;
+	box-shadow: 1px 1px 3px 1px lightgreen;
+	text-align: center;
+	font-size: 16px;
+}
+#modal-submit:hover,
+#modal-submit:focus,
+#submit_alias:hover,
+#submit_alias:focus{
+	background-color: green;
+	box-shadow: 1px 1px 3px 1px white;
+	opacity: 1;
+	color: white;
+}
+#myModal_alias{
+	display: none;
+}
+#alias_name{
+	font-size:16px;
+	width:150px;
+	font-weight: bold;
+	text-align:left;
+}
+#modal_alias{
+	width:500px;
+	height: 90px;
+}
+#submit_alias{
+	width: 70px;
+	height:20px;
+	color: black;
+}
+
+
+@keyframes buttonBounce2{
+	0%   {border-color:#db0031; transform: scale(0.9); transform: translate(+50%,-50%);}
+	90%   {border-color:#db0031; transform: scale(1.05); transform: translate(+50%,-50%);}
+	100% {border-color: #db0031; transform: scale(1); transform: translate(+50%,-50%);}
+}
+@keyframes buttonBounce{
+	0%   { transform: scale(1)}
+	80% {border-color:#db0031; transform: scale(1)}
+	90%   {border-color:#db0031; transform: scale(1)}
+	100% {border-color:#e4504e; transform: scale(1)}
+}

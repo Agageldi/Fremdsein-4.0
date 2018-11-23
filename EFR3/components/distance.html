@@ -1,0 +1,366 @@
+<html >
+<head>
+	<title>Emotional Ranking</title>
+	<script>
+		var foodHandler = []
+		
+		for(i=0;i<5;i++){
+			var txt = 'foodHandler'+i
+			foodHandler.push(parseInt(localStorage.getItem(txt)))
+		}
+		
+		var freedomHandler = []
+		
+		for(i=0;i<5;i++){
+			var txt = 'freedomHandler'+i
+			freedomHandler.push(parseInt(localStorage.getItem(txt)))
+		}
+		
+		var ftopicHandler = []
+		
+		for(i=0;i<5;i++){
+			var txt = 'ftopicHandler'+i
+			ftopicHandler.push(parseInt(localStorage.getItem(txt)))
+		}
+		
+	</script>
+		
+	<script src="jquery.min.js" > </script>
+	<script src="Worldmap_json_print.js" > </script> 
+	
+	
+	<link href="style.css" type="text/css" rel="stylesheet" />
+	<link href="distance.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="agreement_modal.css" />
+	
+		
+	<link rel="stylesheet" href="libs/leaflet/leaflet.css" />
+    <script src="libs/leaflet/leaflet.js"></script>	
+	<script src="libs/leaflet/leaflet-src.js"></script>	
+	
+	<script src="libs/leaflet/projection/proj4.js"></script>
+	<script src="libs/leaflet/projection/proj4leaflet.js"></script>
+	
+	<script src="libs/leaflet/grid/Leaflet.Graticule.js"></script>	
+	<script src="libs/leaflet/grid/L.Graticule.js"></script>	
+	
+	
+	<script src="libs/jsPDF/jspdf.js"></script>	
+	<script src="libs/jsPDF/html2canvas.min.js"></script>	
+	<script src="libs/jsPDF/jquery.printElement.min.js"></script>	
+	
+	
+	
+	
+	<script src="libs/jsPDF/dom-to-image.min.js"></script>	
+	
+	
+
+	<link href="style_arrangment_bar.css" type="text/css" rel="stylesheet" />
+	
+	
+	
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script-->
+	
+	
+<link href=".\popup.css" type="text/css" rel="stylesheet" />
+
+	
+	
+</head>
+<body style='min-width:1700px; min-height:1100px;max-width:1700px; max-height:1100px;'>
+
+
+
+	<style>
+		.icon_ref:hover,
+		.icon_ref:focus{
+			background-color: white;
+		}
+	</style>
+	
+<div class="popup"  onclick="myFunctionInfo()">
+		<img src='./icons/info.png' class="icon_ref"> 
+			<span class="popuptext" id="myPopup">
+				
+			</span> 
+		</img>
+	</div>
+	<script src="infoPage.js"></script>	
+	<script>
+	function myFunctionInfo() {
+		var popup = document.getElementById("myPopup");
+		popup.classList.toggle("show");	
+	}
+	document.getElementById('myPopup').innerHTML = infoPage
+	document.getElementById('WordSection1').style.width = '90%'
+	</script>
+	
+		
+	
+		<!--GALLERY-->
+
+
+	<div class="popup" id='popup_gallery' onclick="myFunctionInfo1()">
+		<img src='./icons/gallery.png' class="icon_ref" id='info_ref_gallery'> 
+			<span class="popuptext" id="myPopup_gallery">
+				<div class = 'slideBox' id='imageBox'>
+					<img class="images" src=""/>
+				</div>
+			</span> 
+		</img>
+	</div>
+	<script src="gallery.js"></script>
+	
+	
+	
+	
+	<a id= 'test'></a>
+
+	
+<!--Agreement Modal-->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content"> 
+	<div class="modal-text" id="modal-text"> <p class = 'center'>I agree that my input will be stored as well as shared with other users</p></div>
+	<div class="modal-button" id ="modal-disagree"><p class = 'center'>disagree</p></div>
+	<div class="modal-button" id = "modal-agree"><p class = 'center'>agree</p></div>
+  </div>
+</div>
+
+<div id="myModal_alias" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" id='modal_alias'> 
+	<div class="modal-text_alias" id="modal-text_alias" style= 'margin-left:0px; width:40%;' > <p class = 'center'>Alias name: </p></div>
+	<div class="modal-text_alias" style= 'margin-left:0px;'><input class ="alias_name center" id ="alias_name" type="text" name="firstname" autocomplete="off" value="" autofocus /> </div>
+	<div class="modal-text_alias" id="alias_button"> <div class="modal-button center" id = "submit_alias"><p class = 'center'>ok</p></div> </div>
+  </div>
+</div>
+
+
+
+<div class = 'mainBox' id = 'printBox' >
+<div id='header1'>Emotional Foreignness Ranking</div>
+<div class = 'mainBox' id = 'mainBox'>
+<div id = 'topTitle'>
+	<div id = 'homeTitle'></div>
+	<div id = 'dataTitle'></div>
+
+	
+</div>
+<div class="title" id='T1'> Food  </div> 
+<div class="arr" id="arrangment1">
+	<div class="box" id="box11"> 
+		<div class="name" id="name11">nothing text</div>
+		<div class="map" id="map11"></div>
+		
+	</div>
+	<div class="box" id="box12"> 
+		<div  class="name"id="name12">nothing text</div>
+		<div class="map" id="map12"></div>
+		
+	</div>
+	<div class="box" id="box13"> 
+		<div  class="name"id="name13">nothing text</div>
+		<div class="map" id="map13"></div>
+		
+	</div>
+	<div class="box" id="box14"> 
+		<div  class="name"id="name14">nothing text</div>
+		<div class="map" id="map14"></div>
+		
+	</div>
+	<div class="box" id="box15"> 
+		<div  class="name"id="name15">nothing text</div>
+		<div class="map" id="map15"></div>
+		
+	</div>
+	<div class="arrangment_bar bar1">
+      <div class="pointer slider1" ></div>
+	  <div class="pointer slider1" ></div>
+	  <div class="pointer slider1" ></div>
+	  <div class="pointer slider1" ></div>
+	  <div class="pointer slider1" ></div>
+    </div>
+	
+<script>
+		var foodHandler = []
+		var HANDler = document.getElementsByClassName("slider1")
+		
+		for(i=0;i<5;i++){
+			var txt = 'foodHandler'+i
+			foodHandler.push(parseInt(localStorage.getItem(txt)))
+			}
+		var T = foodHandler[4]-foodHandler[0]
+		for(i=0;i<5;i++){			
+			HANDler[i].style.left=(foodHandler[i]-foodHandler[0])*99/T+'%'
+		}
+				
+</script>
+</div>
+
+
+<div class="title" id='T2'> Freedom </div>
+<div class="arr" id="arrangment2">
+	<div class="box"id="box21"> 
+		<div  class="name"id="name21">nothing text</div>
+		<div class= "map"id="map21"></div>
+		
+	</div>
+		<div class="box"id="box22"> 
+		<div  class="name"id="name22">nothing text</div>
+		<div class= "map"id="map22"></div>
+		
+	</div>
+		<div class="box"id="box23">
+		<div  class="name"id="name23">nothing text</div>		
+		<div class= "map"id="map23"></div>
+		
+	</div>
+		<div class="box"id="box24">
+		<div  class="name"id="name24">nothing text</div>		
+		<div class= "map"id="map24"></div>
+		
+	</div>
+		<div class="box"id="box25"> 
+		<div  class="name" id="name25">nothing text</div>
+		<div class= "map"id="map25"></div>
+		
+	</div>
+	<div class="arrangment_bar bar2">
+      <div class="pointer slider2" ></div>
+	  <div class="pointer slider2" ></div>
+	  <div class="pointer slider2" ></div>
+	  <div class="pointer slider2" ></div>
+	  <div class="pointer slider2" ></div>
+    </div>
+	
+<script>
+		var freedomHandler = []
+		var HANDler = document.getElementsByClassName("slider2")
+		
+		for(i=0;i<5;i++){
+			var txt = 'freedomHandler'+i
+			freedomHandler.push(parseInt(localStorage.getItem(txt)))
+		}			
+		var T = freedomHandler[4]-freedomHandler[0]
+		for(i=0;i<5;i++){			
+			HANDler[i].style.left=(freedomHandler[i]-freedomHandler[0])*99/T+'%'
+		}
+</script>
+</div>
+
+<div class="title" id="T3"> Free Topic </div>
+<div class="arr" id="arrangment3">
+	<div class="box"id="box31"> 
+		<div class="name"id="name31">nothing text</div>
+		<div class= "map"id="map31"></div>
+		
+	</div>
+		<div class="box"id="box32">
+		<div class="name"id="name32">nothing text</div>
+		<div class= "map"id="map32"></div>
+		
+	</div>
+		<div class="box"id="box33"> 
+		<div class="name"id="name33">nothing text</div>
+		<div class= "map"id="map33"></div>
+		
+	</div>
+		<div class="box"id="box34"> 
+		<div class="name"id="name34">nothing text</div>
+		<div class= "map"id="map34"></div>
+		
+	</div>
+		<div class="box"id="box35"> 
+		<div class="name"id="name35">nothing text</div>
+		<div class= "map"id="map35"></div>
+		
+	</div>
+	<div class="arrangment_bar bar3">
+      <div class="pointer slider3" ></div>
+	  <div class="pointer slider3" ></div>
+	  <div class="pointer slider3" ></div>
+	  <div class="pointer slider3" ></div>
+	  <div class="pointer slider3" ><p>tkm</p></div>
+    </div>
+	
+<script>
+		var ftopicHandler = []
+		var HANDler = document.getElementsByClassName("slider3")
+		
+		for(i=0;i<5;i++){
+			var txt = 'ftopicHandler'+i
+			ftopicHandler.push(parseInt(localStorage.getItem(txt)))
+			HANDler[i].style.left= ftopicHandler[i]+'%'
+		}
+		
+		var T = ftopicHandler[4]-ftopicHandler[0]
+		for(i=0;i<5;i++){			
+			HANDler[i].style.left=(ftopicHandler[i]-ftopicHandler[0])*99/T+'%'
+		}
+</script>
+</div>
+
+<div class="title" id='T4'> Real Distance from Home </div> 
+<div class="dist" id="ruler" >
+	<div class ='ruler-tick' id='tick1' data-value = '5000'></div>
+	<div class ='ruler-tick' id='tick2' data-value = '10000'></div>
+	<div class ='ruler-tick' id='tick3' data-value = '15000'></div>
+	<div class ='ruler-tick' id='tick4' data-value = '20000'></div>
+	<div class="marker" id="M1">TKM</div>
+	<div class="marker" id="M2">TKM</div>
+	<div class="marker" id="M3">TKM</div>
+	<div class="marker" id="M4">TKM</div>
+	<div class="marker" id="M5">TKM</div>
+	
+</div>
+
+
+	<!--div id = 'stamp' > </div-->
+	
+	
+
+	
+</div> <!--Main Box End-->
+	<style>
+	#explanationText{
+		text-align: justify;
+		line-height: 19px;
+		padding-top:15px;
+		padding-bottom: 20px;
+	}
+	
+	</style>
+	<div class = 'printText' id='explanationText'>“Not feeling at home” is a very personal experience. For every individual it is linked to other aspects of life. Such aspects could be food, experienced freedom, and weath- er, surrounding landscape, vegetation or culture among others. However, depending on how you were brought up, the experi-	ence of particular aspects e.g. food differs: German people are particular about bread, Indians complain about the rice German people prepare, and what is called ‘ugali’ in Kenya is named ‘posho’ in Uganda and ‘papp’ in South Africa but it was claimed not to be the “same”. With the world getting smaller due to globalization and affordable travelling for many, our hypothesis is that “Not feeling at home” is nowadays not necessarily related to the physical distance from home. We want to show this by means of the ‘Emotional Foreignness Ranking’ App.
+	</div>
+	<div class = 'printText'>
+		<div id='comment'>
+			<div id= 'comment_icon'>Comment</div>
+				<textarea id='input_field' type='text' > </textarea>		
+		</div>
+			<div class ='button2' id= 'comment_button'><p class="center">submit & finish</p></div>
+
+			<div class ='button2'id= 'finish_button' ><p class="center">finish</p></div>
+	</div>
+	<div id='copy_right'>&copy; Fremdsein 4.0 project, HsKA, 2018</div>
+	
+
+</div>
+
+
+
+
+
+
+<script src="JQscript.js" > </script>
+<script src="distanceCalc.js" > </script>
+<script src="MapLayout.js" > </script> 
+<script src="DB.js" > </script> 
+
+
+
+</body>
+
+</html>
